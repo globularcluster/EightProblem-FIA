@@ -17,17 +17,16 @@ public class ShowSolution : MonoBehaviour
 		slots = new ArrayList (9);
 		pieces = new ArrayList (9);
 
+		// preenche variavel com slots ordenados
 		foreach (Transform obj in transform.GetComponentsInChildren<Transform> ()) {
 			if (obj.tag == "slot")
-				slots.Add (obj);
-			else
-				continue;	
+				slots.Add (obj);	
 		}
 
+		// preenche variável pieces com as peças ordenadas
 		foreach (Transform peca in Pecas.transform.GetComponentsInChildren<Transform> ()) {
 			if (peca.tag == "piece")
-				pieces.Add (peca);
-			
+				pieces.Add (peca);	
 		}
 
 		ArrayList teste = new ArrayList ();
@@ -44,23 +43,25 @@ public class ShowSolution : MonoBehaviour
 		SetSlotSolution (teste);
 
 	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
 
+	/** Exibe um estado.
+	 * Reccebe um ArrayList de inteiros com nove posições. Ex: 
+	 * arr = { 1, 2, 3, 4, 0, 5, 6, 7, 8 } 
+	 * 
+	 * 1   2   3
+	 * 4       5
+	 * 6   7   8
+	 * 
+	 **/
 	private void SetSlotSolution (ArrayList arr)
 	{
 		int i = 0;
 		foreach (Transform slot in slots) {
-
 			int index = (int)arr [i++];
-			Debug.Log (index);
+//			Debug.Log (index);
+
 			if (index == 0)
 				continue;
-			
 
 			Transform tr = (Transform)pieces [index - 1];
 			tr.position = slot.position;
