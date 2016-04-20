@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class BuscaProfun : MonoBehaviour
 {
@@ -37,17 +38,18 @@ public class BuscaProfun : MonoBehaviour
 		}
 
 		// percorre pilha d peças do Estado Final, se houver peça na pilha ainda, warning é exibido
-		foreach (Transform slotTransform in pecasFin.GetComponentsInChildren<Transform>()) {
-			if (slotTransform.GetComponent<DragMe> ()) {
-				warnPanel.SetActive (true);
-				return;
-			}
-		}
+//		foreach (Transform slotTransform in pecasFin.GetComponentsInChildren<Transform>()) {
+//			if (slotTransform.GetComponent<DragMe> ()) {
+//				warnPanel.SetActive (true);
+//				return;
+//			}
+//		}
 
 
 		ordArr.Clear ();
+		// coloca posições iniciais e coloca em um ArrayList
 		foreach (Transform slotTransform in slotsIni.GetComponentsInChildren<Transform>()) {
-			if (slotTransform.GetComponent<DropMe> ()) {
+			if (slotTransform.tag == "slot") {
 				DragMe dm = slotTransform.GetComponentInChildren<DragMe> ();
 
 				if (dm)
@@ -62,6 +64,9 @@ public class BuscaProfun : MonoBehaviour
 			Debug.Log (i);
 		}
 
+		SceneManager.LoadScene ("Busca");
+
 	}
+		
 		
 }

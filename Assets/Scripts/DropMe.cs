@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Security.Cryptography;
 
 public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -24,6 +25,9 @@ public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
 		// Slot recebe peça apenas se for de sua respectiva pilha de peças
 		if (objDragged.transform.parent.gameObject != receiv)
 			return;
+
+		if (transform.childCount > 0)
+			return;
 		
 		objDragged.transform.SetParent (slotPanel.transform);
 		objDragged.transform.position = slotPanel.transform.position;
@@ -36,7 +40,7 @@ public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
 		GameObject objDragged = data.pointerDrag;
 		if (slotPanel == null || objDragged == null || objDragged.transform.parent.gameObject != receiv)
 			return;
-
+		
 		if (objDragged.GetComponent<DragMe> ())
 			slotPanel.color = highlightColor;
                
