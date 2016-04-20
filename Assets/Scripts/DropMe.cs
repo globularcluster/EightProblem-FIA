@@ -9,31 +9,38 @@ public class DropMe : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointe
 	private Image slotPanel;
 	private Color normalColor;
 	public Color highlightColor = Color.yellow;
-	
-    void Start()
-    {
-        slotPanel = GetComponent<Image>();
-        normalColor = slotPanel.color;
-    }
-	
+	public GameObject receiv;
+
+	void Start ()
+	{
+		slotPanel = GetComponent<Image> ();
+		normalColor = slotPanel.color;
+	}
+
 	public void OnDrop (PointerEventData data)
 	{
-		data.pointerDrag.transform.SetParent(slotPanel.transform);
-        data.pointerDrag.transform.position = slotPanel.transform.position;
+		GameObject objDragged = data.pointerDrag;
+	
+		// Slot recebe peça apenas se for de sua respectiva pilha de peças
+		if (objDragged.transform.parent.gameObject != receiv)
+			return;
+		
+		objDragged.transform.SetParent (slotPanel.transform);
+		objDragged.transform.position = slotPanel.transform.position;
 
-        ExecuteEvents.ExecuteHierarchy<IHasChanged>(gameObject, null, (x, y) => x.HasChanged());
-    }
+		ExecuteEvents.ExecuteHierarchy<IHasChanged> (gameObject, null, (x, y) => x.HasChanged ());
+	}
 
-    public void OnPointerEnter(PointerEventData data)
-    {
-        GameObject objDragged = data.pointerDrag;
-        if (slotPanel == null || objDragged == null)
-            return;
+	public void OnPointerEnter (PointerEventData data)
+	{
+		GameObject objDragged = data.pointerDrag;
+		if (slotPanel == null || objDragged == null || objDragged.transform.parent.gameObject != receiv)
+			return;
 
-        if(objDragged.GetComponent<DragMe>())
-            slotPanel.color = highlightColor;
+		if (objDragged.GetComponent<DragMe> ())
+			slotPanel.color = highlightColor;
                
-    }
+	}
 
 	public void OnPointerExit (PointerEventData data)
 	{

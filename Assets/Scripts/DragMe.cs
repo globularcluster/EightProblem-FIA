@@ -3,12 +3,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
+[RequireComponent (typeof(Image))]
 public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	public bool dragOnSurfaces = true;
-    public int value;
-	
+	public int value;
+
 	private Dictionary<int,GameObject> m_DraggingIcons = new Dictionary<int, GameObject> ();
 	private Dictionary<int, RectTransform> m_DraggingPlanes = new Dictionary<int, RectTransform> ();
 
@@ -63,7 +63,8 @@ public class DragMe : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHa
 
 	public void OnEndDrag (PointerEventData eventData)
 	{
-		if (m_DraggingIcons [eventData.pointerId] != null) 
+		
+		if (m_DraggingIcons [eventData.pointerId] != null)
 			Destroy (m_DraggingIcons [eventData.pointerId]);
 
 		m_DraggingIcons [eventData.pointerId] = null;
