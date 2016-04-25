@@ -13,6 +13,8 @@ public class OrdemEstadoInicial : MonoBehaviour, IHasChanged
 
 	[SerializeField]
 	Text tex;
+    public int x;
+    public int y;
 
     public GameObject pecasIni;
 
