@@ -14,19 +14,31 @@ public class OrdemEstadoInicial : MonoBehaviour, IHasChanged
 	[SerializeField]
 	Text tex;
 
-	private ArrayList ordArr = new ArrayList (9);
+    public GameObject pecasIni;
 
+	public ArrayList ordArr = new ArrayList (9);
+      public int[,] matriz = new int[3, 3]{
+            {0,0,0},
+            {0,0,0},
+            {0,0,0}
+
+        };
 	public void HasChanged ()
 	{
+        Debug.Log("Mudou!");
 		// COLOCA PEÇAS EM UM ARRAYLIST NA ORDEM QUE ESTÁ NO TABULEIRO
 		ordArr.Clear ();
 		foreach (Transform slotTransform in slots.GetComponentsInChildren<Transform>()) {
 			DragMe dm = slotTransform.GetComponent<DragMe> ();
 			if (dm)
-				ordArr.Add (dm.value);
-			
-		}
+            {
+                ordArr.Add(dm.value);
+                Debug.Log("adicionou valor" + dm.value);
+            }
 
+        }
+
+      
 		#region DEBUG
 		System.Text.StringBuilder builder = new System.Text.StringBuilder ();
 		builder.Append (" - ");

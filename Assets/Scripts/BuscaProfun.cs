@@ -1,4 +1,4 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using UnityEngine.UI;
@@ -11,24 +11,29 @@ public class BuscaProfun : MonoBehaviour
 	public Transform pecasFin;
 	public Transform slotsIni;
 	public GameObject warnPanel;
+    public int[,] matriz = new int[3, 3];
+    public GameObject nextState_btn;
+    Entrada entrada;
 
-	private ArrayList ordArr;
+    public GameObject loading;
 
-	// Use this for initialization
-	void Start ()
+    private ArrayList ordArr;
+
+    public Text statusDisplay;
+    public Busca _busca;
+
+    public ResetPieces reset;
+
+    void Start ()
 	{
-		ordArr = new ArrayList (9);
+        entrada = GameObject.FindGameObjectWithTag("Entrada").GetComponent<Entrada>();
+        ordArr = new ArrayList (9);
 	}
 	
-	// Update is called once per frame
-	void Update ()
-	{
-	
-	}
-
 	public void ProfunClicked ()
 	{
-		// percorre pilha de peÃ§as do Estado Inicial, se encontrar alguma, warning Ã© exibido
+        reset.resetBusca();
+       	// percorre pilha de peças do Estado Inicial, se encontrar alguma, warning é exibido
 		foreach (Transform slotTransform in pecasIni.GetComponentsInChildren<Transform>()) {
 			if (slotTransform.GetComponent<DragMe> ()) {
 				warnPanel.SetActive (true);
@@ -37,7 +42,7 @@ public class BuscaProfun : MonoBehaviour
 
 		}
 
-		// percorre pilha d peÃ§as do Estado Final, se houver peÃ§a na pilha ainda, warning Ã© exibido
+		// percorre pilha d peças do Estado Final, se houver peça na pilha ainda, warning é exibido
 //		foreach (Transform slotTransform in pecasFin.GetComponentsInChildren<Transform>()) {
 //			if (slotTransform.GetComponent<DragMe> ()) {
 //				warnPanel.SetActive (true);
@@ -45,28 +50,81 @@ public class BuscaProfun : MonoBehaviour
 //			}
 //		}
 
-
 		ordArr.Clear ();
-		// coloca posiÃ§Ãµes iniciais e coloca em um ArrayList
+		// coloca posições iniciais e coloca em um ArrayList
 		foreach (Transform slotTransform in slotsIni.GetComponentsInChildren<Transform>()) {
 			if (slotTransform.tag == "slot") {
 				DragMe dm = slotTransform.GetComponentInChildren<DragMe> ();
 
 				if (dm)
-					ordArr.Add (dm.value);
+                {
+                    ordArr.Add(dm.value);
+                }
+					
 				else
 					ordArr.Add (0);
 			} else
 				continue;
 		}
 
-		foreach (int i in ordArr) {
-			Debug.Log (i);
-		}
+            int i, j;
+            i = -1;
+            j = -1;
+            for (int m = 0; m < 9; m++)
+            {
+                if (m % 3 == 0)
+                {
+                    i++;
 
-		SceneManager.LoadScene ("Busca");
+                    j = 0;
+                }
+                else
+                {
+                    j++;
+                }
+                matriz[i, j] = (int)ordArr[m];
+                //Debug.Log(matriz[i, j]);
+            }
 
-	}
+            Debug.Log("Iniciando impressao da matriz...");
+            for (i = 0; i < 3; i++)
+            {
+                for (j = 0; j < 3; j++)
+                {
+                    Debug.Log(matriz[i, j]);
+                }
+            }
+
+        
+        
+        for ( i = 0; i < 3; i++)
+        {
+            for (j = 0; j < 3; j++)
+            {
+                entrada.inicial[i, j] = matriz[i, j];
+            }
+        }
+
+        StartCoroutine(efetuaBusca());
+        
+
+
+
+    }
+
+    IEnumerator efetuaBusca()
+    {
+        loading.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        entrada.transfereConteudo();
+        entrada.buscaEmProfundidadade();
+
+        loading.SetActive(false);
+
+        statusDisplay.text = "Inversoes: "+_busca._inversoes+"-->"+_busca.soluvel+"\nProfundidade:"+_busca.profMax+"\nEstados testados:"+_busca.testados;
+    }
 		
 		
 }
