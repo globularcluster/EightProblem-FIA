@@ -9,6 +9,7 @@ public class ResetPieces : MonoBehaviour
 	public Transform pieces;
     public Busca busca;
     public NextState nextState;
+    public GameObject nextState_btn;
 
     public Text statusDisplay;
 
@@ -44,5 +45,7 @@ public class ResetPieces : MonoBehaviour
         nextState.restaSolucoes = true;
 
         statusDisplay.text = " ";
+
+        nextState_btn.SetActive(false);
     }
 }

@@ -124,7 +124,14 @@ public class BuscaLarg : MonoBehaviour
 
         loading.SetActive(false);
 
-        statusDisplay.text = "Inversoes: " + _busca._inversoes + "-->" + _busca.soluvel + "\nEstados testados:" + _busca.testados + "\nEstados Gerados:" + _busca.arvore.Count;
+        statusDisplay.text = "Inversoes: " + _busca._inversoes + "-->" + _busca.soluvel + "\nEstados: \n-Gerados:" + _busca.arvore.Count + "\n-Testados:" + _busca.testados + "\n-Conjunto Solucao:" + (_busca.solucao.Count - 1);
+
+        //ativa o botao de proximo estado
+        if (_busca.arvore.Count > 1)
+        {
+            nextState_btn.SetActive(true);
+        }
+
     }
 
 

@@ -67,6 +67,8 @@ public class NextState : MonoBehaviour {
                 restaSolucoes = false;
                 Debug.Log("Atingiu Limite de solucoes");
                 m = 0; //so pra garantir
+                gameObject.SetActive(false);
+
             }
         }
 
