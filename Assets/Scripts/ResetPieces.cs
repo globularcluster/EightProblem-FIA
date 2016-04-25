@@ -18,7 +18,7 @@ public class ResetPieces : MonoBehaviour
 		foreach (Transform slotTransform in slots.GetComponentsInChildren<Transform>()) {
 			Transform tr = slotTransform.GetComponentInChildren<Transform> ();
 
-			if (tr.tag == "pieceIni") {
+			if (tr.tag.Equals ("pieceIni") || tr.tag.Equals ("pieceFin")) {
 				tr.SetParent (pieces);
 				tr.position = pieces.position;
 			}
