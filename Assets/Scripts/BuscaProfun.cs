@@ -123,7 +123,7 @@ public class BuscaProfun : MonoBehaviour
 
         loading.SetActive(false);
 
-        statusDisplay.text = "Inversoes: "+_busca._inversoes+"-->"+_busca.soluvel+"\nProfundidade:"+_busca.profMax+"\nEstados testados:"+_busca.testados;
+        statusDisplay.text = "Inversoes: "+_busca._inversoes+"-->"+_busca.soluvel+"\nEstados testados:"+_busca.testados+"\nEstados Gerados:"+_busca.arvore.Count;
     }
 		
 		
