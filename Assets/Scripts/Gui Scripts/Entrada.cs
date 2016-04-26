@@ -11,7 +11,6 @@ public class Entrada : MonoBehaviour {
     public int prof = 3;
     public Busca busca;
 
-
     void Start()
     {
         Busca busca = GameObject.Find("Busca").GetComponent<Busca>();

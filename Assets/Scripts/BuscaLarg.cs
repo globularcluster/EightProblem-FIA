@@ -8,7 +8,6 @@ public class BuscaLarg : MonoBehaviour
 {
 
     public Transform pecasIni;
-    public Transform pecasFin;
     public Transform slotsIni;
     public GameObject warnPanel;
     public int[,] matriz = new int[3, 3];
@@ -42,14 +41,6 @@ public class BuscaLarg : MonoBehaviour
             }
 
         }
-
-        // percorre pilha d peças do Estado Final, se houver peça na pilha ainda, warning é exibido
-        //		foreach (Transform slotTransform in pecasFin.GetComponentsInChildren<Transform>()) {
-        //			if (slotTransform.GetComponent<DragMe> ()) {
-        //				warnPanel.SetActive (true);
-        //				return;
-        //			}
-        //		}
 
         ordArr.Clear();
         // coloca posições iniciais e coloca em um ArrayList

@@ -19,16 +19,10 @@ public class OrdemEstadoInicial : MonoBehaviour, IHasChanged
     public GameObject pecasIni;
 
 	public ArrayList ordArr = new ArrayList (9);
-      public int[,] matriz = new int[3, 3]{
-            {0,0,0},
-            {0,0,0},
-            {0,0,0}
-
-        };
+    public int[,] matriz = new int[3, 3];
 	public void HasChanged ()
 	{
-        Debug.Log("Mudou!");
-		// COLOCA PEÇAS EM UM ARRAYLIST NA ORDEM QUE ESTÁ NO TABULEIRO
+        // COLOCA PEÇAS EM UM ARRAYLIST NA ORDEM QUE ESTÁ NO TABULEIRO
 		ordArr.Clear ();
 		foreach (Transform slotTransform in slots.GetComponentsInChildren<Transform>()) {
 			DragMe dm = slotTransform.GetComponent<DragMe> ();
